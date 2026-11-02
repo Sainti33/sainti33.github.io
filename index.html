@@ -19,14 +19,14 @@
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.7;overflow-x:hidden}
-body::before{
+body::before{ /* PCB grid */
   content:"";position:fixed;inset:0;z-index:-2;
   background-image:
     linear-gradient(rgba(61,255,160,.05) 1px,transparent 1px),
     linear-gradient(90deg,rgba(61,255,160,.05) 1px,transparent 1px);
   background-size:40px 40px;
 }
-body::after{
+body::after{ /* scanlines */
   content:"";position:fixed;inset:0;z-index:50;pointer-events:none;
   background:repeating-linear-gradient(0deg,rgba(0,0,0,.12) 0 1px,transparent 1px 3px);
   mix-blend-mode:multiply;
@@ -55,6 +55,7 @@ nav ul a:hover{color:var(--green)}
 .hero h1{font-size:clamp(2.8rem,7vw,5.2rem);line-height:1.02;margin:1.2rem 0 .8rem;letter-spacing:-2px}
 .hero h1 span{background:linear-gradient(90deg,var(--green),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent}
 .hero .role{font-family:var(--mono);font-size:1.05rem;color:var(--muted);min-height:1.8em}
+.hero .role em{color:var(--amber);font-style:normal}
 .cursor{display:inline-block;width:.6ch;height:1.1em;background:var(--green);vertical-align:-.2em;animation:blink 1s steps(1) infinite}
 @keyframes blink{50%{opacity:0}}
 .hero p.lead{margin:1.4rem 0 2rem;max-width:540px;color:#b4cfc4}
@@ -372,6 +373,7 @@ footer b{color:var(--green)}
   function size(){const r=cv.getBoundingClientRect(),d=devicePixelRatio||1;cv.width=r.width*d;cv.height=r.height*d;ctx.setTransform(d,0,0,d,0,0)}
   size();addEventListener('resize',size);
   const g=(x,m,s,a)=>a*Math.exp(-((x-m)**2)/(2*s*s));
+  // one PQRST beat, x in [0,1)
   function beat(x){return g(x,.18,.03,.12)+g(x,.285,.008,-.15)+g(x,.31,.012,1)+g(x,.335,.01,-.28)+g(x,.55,.05,.25)}
   let bpm=72,phase=0,buf=[],last=performance.now();
   const hr=document.getElementById('hr'),sp=document.getElementById('sp'),rr=document.getElementById('rr');
@@ -379,7 +381,7 @@ footer b{color:var(--green)}
   function draw(now){
     const W=cv.getBoundingClientRect().width,H=cv.getBoundingClientRect().height;
     const dt=(now-last)/1000;last=now;
-    const sp_=120;
+    const sp_=120; // px per second
     const n=Math.max(1,Math.round(dt*sp_));
     for(let k=0;k<n;k++){
       phase+=(bpm/60)*(1/sp_);phase%=1;
@@ -388,6 +390,7 @@ footer b{color:var(--green)}
     const maxLen=Math.floor(W);
     while(buf.length>maxLen)buf.shift();
     ctx.fillStyle='rgba(2,6,5,.35)';ctx.fillRect(0,0,W,H);
+    // grid
     ctx.strokeStyle='rgba(61,255,160,.07)';ctx.lineWidth=1;
     for(let x=0;x<W;x+=30){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke()}
     for(let y=0;y<H;y+=30){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke()}
@@ -413,6 +416,7 @@ footer b{color:var(--green)}
   function size(){const r=cv.getBoundingClientRect(),d=devicePixelRatio||1;cv.width=r.width*d;cv.height=r.height*d;ctx.setTransform(d,0,0,d,0,0)}
   size();addEventListener('resize',size);
   const bits=(v,n)=>Array.from({length:n},(_,i)=>(v>>(n-1-i))&1);
+  // each signal is an array of 0/1 "ticks"
   function build(p){
     if(p==='uart'){
       const f=b=>[1,1,0,...b.slice().reverse(),1,1];
@@ -422,9 +426,10 @@ footer b{color:var(--green)}
       const addr=bits(0x3C,7),d=bits(0xA5,8);
       const sda=[1,1,1,0,0],scl=[1,1,1,1,0];
       const push=(s,c)=>{sda.push(s,s);scl.push(0,1)};
-      [...addr,0].forEach(b=>push(b));push(0);
-      d.forEach(b=>push(b));push(0);
-      sda.push(0,0,1,1);scl.push(1,1,1,1);
+      [...addr,0].forEach(b=>push(b));push(0);   // addr+W, ACK
+      d.forEach(b=>push(b));push(0);               // data, ACK
+      sda.push(0,0,1,1);scl.push(1,1,1,1);       // stop
+      // fix lengths
       while(scl.length<sda.length)scl.push(1);
       return {rows:[['SCL',scl],['SDA',sda]],tick:14};
     }
