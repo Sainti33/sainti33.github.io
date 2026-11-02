@@ -6,87 +6,134 @@
     <title>Sainti Choudhary - Embedded Software Engineer</title>
     <style>
         :root {
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
-            --text-color: #f8fafc;
+            --bg-color: #0b0f19;
+            --card-bg: #111827;
+            --text-color: #f3f4f6;
             --accent-color: #38bdf8;
-            --text-secondary: #94a3b8;
+            --accent-gradient: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+            --text-secondary: #9ca3af;
+            --border-color: #1f2937;
+        }
+        * {
+            box-sizing: border-box;
         }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             margin: 0;
             padding: 0;
-            line-height: 1.6;
+            line-height: 1.7;
         }
         header {
-            background: linear-gradient(135deg, #1e293b, #0f172a);
-            padding: 4rem 2rem;
+            background: linear-gradient(135deg, #111827, #0b0f19);
+            padding: 5rem 2rem 3rem 2rem;
             text-align: center;
-            border-bottom: 1px solid #334155;
+            border-bottom: 1px solid var(--border-color);
         }
         header h1 {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             margin: 0;
-            color: var(--accent-color);
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
         }
         header p {
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             color: var(--text-secondary);
-            margin-top: 0.5rem;
+            margin-top: 0.8rem;
+        }
+        .contact-info {
+            margin-top: 1.2rem;
+            font-size: 0.95rem;
+            color: var(--accent-color);
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .contact-info span {
+            background: rgba(56, 189, 248, 0.1);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            border: 1px solid rgba(56, 189, 248, 0.2);
         }
         .container {
-            max-width: 900px;
-            margin: 2rem auto;
+            max-width: 950px;
+            margin: 2.5rem auto;
             padding: 0 1.5rem;
         }
         section {
             background: var(--card-bg);
-            margin-bottom: 1.5rem;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            margin-bottom: 2rem;
+            padding: 2.5rem;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+        section:hover {
+            border-color: rgba(56, 189, 248, 0.4);
         }
         h2 {
             color: var(--accent-color);
-            border-bottom: 2px solid #334155;
-            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.6rem;
             margin-top: 0;
+            font-size: 1.5rem;
+            letter-spacing: -0.3px;
         }
         .skills-grid {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
+            gap: 0.7rem;
             list-style: none;
             padding: 0;
+            margin-top: 1rem;
         }
         .skills-grid li {
-            background: #334155;
+            background: #1f2937;
             color: var(--text-color);
-            padding: 0.4rem 0.8rem;
-            border-radius: 6px;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
             font-size: 0.9rem;
+            border: 1px solid #374151;
+            font-weight: 500;
         }
         .job {
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .job:last-child {
+            margin-bottom: 0;
         }
         .job h3 {
-            margin: 0 0 0.3rem 0;
+            margin: 0 0 0.2rem 0;
+            font-size: 1.25rem;
+            color: #f9fafb;
         }
         .job span {
             color: var(--accent-color);
             font-size: 0.95rem;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 0.8rem;
         }
         ul {
-            margin-top: 0.5rem;
+            margin: 0;
+            padding-left: 1.2rem;
             color: var(--text-secondary);
+        }
+        ul li {
+            margin-bottom: 0.5rem;
         }
         footer {
             text-align: center;
-            padding: 2rem;
+            padding: 2.5rem;
             color: var(--text-secondary);
             font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 3rem;
         }
     </style>
 </head>
@@ -95,14 +142,18 @@
     <header>
         <h1>Sainti Choudhary</h1>
         <p>Embedded Software Engineer | 7+ Years Experience</p>
-        <p style="font-size: 0.9rem; color: #38bdf8;">Aerocity, Mohali | +91 8699229133 | saintikumar3@gmail.com</p>
+        <div class="contact-info">
+            <span>📍 Aerocity, Mohali</span>
+            <span>📞 +91 8699229133</span>
+            <span>✉️ saintikumar3@gmail.com</span>
+        </div>
     </header>
 
     <div class="container">
         <!-- Professional Summary -->
         <section>
             <h2>Professional Summary</h2>
-            <p>Embedded Firmware Engineer with 7+ years of hands-on experience in developing IoT Gateways, dataloggers, and medical monitoring systems[cite: 2]. Skilled in Embedded C, RTOS, and microcontroller-based system design using STM32 and LPC2148[cite: 2]. Proven ability to build custom embedded GUI systems with real-time waveform rendering[cite: 2].</p>
+            <p>Embedded Firmware Engineer with 7+ years of hands-on experience in developing IoT Gateways, dataloggers, and medical monitoring systems. Skilled in Embedded C, RTOS, and microcontroller-based system design using STM32 and LPC2148. Proven ability to build custom embedded GUI systems with real-time waveform rendering and end-to-end product development.</p>
         </section>
 
         <!-- Core Competencies -->
@@ -110,13 +161,13 @@
             <h2>Core Competencies</h2>
             <ul class="skills-grid">
                 <li>Embedded C / C++ / Python</li>
-                <li>STM32 / ESP32 / LPC2148 / nRF52[cite: 2]</li>
-                <li>FreeRTOS & Task Scheduling[cite: 2]</li>
-                <li>UART / I2C / SPI / Modbus RTU/TCP[cite: 2]</li>
-                <li>GSM / WiFi / Ethernet / LoRA[cite: 2]</li>
-                <li>Custom TFT UI & Real-time Waveforms[cite: 2]</li>
-                <li>FOTA & Flash Management[cite: 2]</li>
-                <li>Hardware & PCB Debugging[cite: 2]</li>
+                <li>STM32 / ESP32 / LPC2148 / nRF52</li>
+                <li>FreeRTOS & Task Scheduling</li>
+                <li>UART / I2C / SPI / Modbus RTU/TCP</li>
+                <li>GSM / WiFi / Ethernet / LoRA</li>
+                <li>Custom TFT UI & Real-time Waveforms</li>
+                <li>FOTA & Flash Management</li>
+                <li>Hardware & PCB Debugging</li>
             </ul>
         </section>
 
@@ -126,24 +177,25 @@
             
             <div class="job">
                 <h3>Embedded Software Engineer</h3>
-                <span>Clarity Medical Pvt. Ltd. (Dec 2022 – Present)[cite: 2]</span>
+                <span>Clarity Medical Pvt. Ltd. (Dec 2022 – Present)</span>
                 <ul>
-                    <li>Developed firmware for medical monitoring systems - ECG, SpO2, heart rate, respiration, and ASSR[cite: 2].</li>
-                    <li>Implemented audio codec firmware via I2S interface; validated using sine wave signal injection on STM32[cite: 2].</li>
-                    <li>Built custom embedded GUI framework from scratch for TFT display without external libraries with real-time waveform rendering[cite: 2].</li>
-                    <li>Developed HAL/BSP for peripheral drivers (SPI, I2C, UART, USB, ADC+DMA) on ARM Cortex-M4[cite: 2].</li>
+                    <li>Developed firmware for medical monitoring systems - ECG, SpO2, heart rate, respiration, and ASSR (Auditory Steady State Response).</li>
+                    <li>Implemented audio codec firmware via I2S interface; validated using sine wave signal injection on STM32.</li>
+                    <li>Built custom embedded GUI framework from scratch for TFT display without external libraries with real-time waveform rendering.</li>
+                    <li>Developed HAL/BSP for peripheral drivers (SPI, I2C, UART, USB, ADC+DMA) on ARM Cortex-M4.</li>
+                    <li>Performed schematic analysis, circuit debugging, and board-level troubleshooting for real-time medical applications.</li>
                 </ul>
             </div>
 
-            <div class="job">
+            <div class="job" style="margin-top: 2.5rem;">
                 <h3>Embedded Software Engineer</h3>
-                <span>Advance Tech India Pvt. Ltd. (Oct 2019 – Nov 2022)[cite: 2]</span>
+                <span>Advance Tech India Pvt. Ltd. (Oct 2019 – Nov 2022)</span>
                 <ul>
-                    <li>Designed and developed IoT gateway and datalogger systems for agriculture and industrial applications[cite: 2].</li>
-                    <li>Implemented communication interfaces including GSM, WiFi, and Ethernet for real-time data transmission[cite: 2].</li>
-                    <li>Developed and integrated Modbus RTU/TCP protocol for communication with field devices[cite: 2].</li>
-                    <li>Implemented Custom FOTA update mechanisms and flash memory management for deployed IoT devices.</li>
-                    <li>Implemented FreeRTOS multitasking firmware with queues, semaphores and inter-task communication[cite: 2].</li>
+                    <li>Designed and developed IoT gateway and datalogger systems for agriculture and industrial applications.</li>
+                    <li>Implemented communication interfaces including GSM, WiFi, and Ethernet for real-time data transmission.</li>
+                    <li>Developed and integrated Modbus RTU/TCP protocol for communication with field devices.</li>
+                    <li>Implemented Custom FOTA (Firmware Over-The-Air) update mechanisms and flash memory management for deployed IoT devices.</li>
+                    <li>Implemented FreeRTOS multitasking firmware with queues, semaphores and inter-task communication.</li>
                 </ul>
             </div>
         </section>
@@ -151,7 +203,10 @@
         <!-- Education -->
         <section>
             <h2>Education</h2>
-            <p><strong>B.Tech in Electronics and Communication Engineering</strong> (2013–2017)[cite: 2]<br>Himachal Pradesh Technical University[cite: 2]</p>
+            <p style="margin: 0; color: var(--text-secondary);">
+                <strong style="color: var(--text-color);">B.Tech in Electronics and Communication Engineering</strong> (2013–2017)<br>
+                <span style="color: var(--accent-color);">Himachal Pradesh Technical University</span>
+            </p>
         </section>
     </div>
 
